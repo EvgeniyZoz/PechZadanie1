@@ -1,0 +1,33 @@
+---
+interface Props {
+  logoSrc: string;
+  tournamentTitle: string;
+  broadcastText?: string; 
+  location: string;
+  date: string;
+  category: string;
+}
+
+const { logoSrc, tournamentTitle, broadcastText, location, date, category } = Astro.props;
+---
+
+<div class="py-5 px-4 md:pl-9 flex gap-4 md:gap-8 bg-highlight2">
+  <div class="flex-shrink-0 w-10">
+    <img src={logoSrc} alt="" class="flex-shrink-0 w-full">
+  </div>
+  <div class="flex flex-col gap-1 flex-grow">
+    <div class="flex flex-wrap gap-x-3 items-start">
+      <div class="text-lg font-bold font-GillSans">{tournamentTitle}</div>
+      {broadcastText ? (
+        <div class="border-2 border-accent1 rounded-full font-bold py-0.5 px-4 text-xxs text-accent1-light leading-4">
+          {broadcastText}
+        </div>
+      ) : null}
+    </div>
+    <div class="font-bold">{location}</div>
+    <div class="flex flex-wrap md:flex-nowrap gap-4 justify-between">
+      <div class="">{date}</div>
+      <div class="text-hidghlight1 uppercase">{category}</div>
+    </div>
+  </div>
+</div>

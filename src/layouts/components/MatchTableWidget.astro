@@ -1,0 +1,92 @@
+---
+interface Player {
+  names: string[];
+  scores: (number | string)[];
+  isActive?: boolean;
+  highlightedScores?: number[];
+}
+
+interface Props {
+  tournamentName: string;
+  round: string;
+  time?: string; // Сделали time необязательным
+  players: Player[];
+  name: string;
+  className?: string;
+  iconBlock?: string;
+  highlightIndex?: number;
+}
+
+const { tournamentName, round, time, players, name, className = "", iconBlock = "", highlightIndex } = Astro.props;
+---
+
+<!-- matchTable -->
+<div class={`shadow-box rounded-2xl border-2 px-2 py-1 match-table ${className}`}>
+  <table class="text-black w-full font-Inter">
+    <tr class="text-xxs">
+      <td class="pb-1 px-2" colspan="7">
+        <div class="flex items-center gap-2">
+          {name}
+        </div>
+      </td>
+    </tr>
+
+    {players.map((player, playerIndex) => (
+      <tr class="text-xs">
+        <td class="py-0.5 px-2">
+          <div class={`relative h-8 flex flex-col justify-center ${player.isActive ? 'player-active' : ''}`}>
+            {player.names.map((name, nameIndex) => (
+              <div class="relative leading-5 h-4">
+                <span class="absolute left-0 top-0 text-ellipsis whitespace-nowrap overflow-hidden w-full fontsize">
+                  <span class="text font-Inter font-medium">{name}</span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </td>
+        {player.scores.map((score, td_index) => {
+          const isHighlighted = player.highlightedScores?.includes(td_index);
+          const highlightClass = highlightIndex != null && td_index === highlightIndex
+            ? playerIndex === 0 ? 'rounded-t-full bg-highlight2' : 'rounded-b-full bg-highlight2'
+            : '';
+          
+          return (
+            <td
+              class={`py-0.5 w-7 text-center ${highlightClass} ${isHighlighted ? 'text-darkest' : ''}`}
+            >
+              {score === 'checked' ? (
+                <img src="images/checked.svg" width="15" alt="Checked" class="mx-auto" />
+              ) : (
+                score
+              )}
+            </td>
+          );
+        })}
+      </tr>
+    ))}
+
+  <tr class="text-xxs text-darkest">
+    <td class="py-1 px-2" colspan="6">
+      <div class="flex items-center justify-between">
+        <div class="flex gap-3 items-center">
+          {iconBlock ? <Fragment set:html={iconBlock} /> : ''}
+          <span>{tournamentName}</span>
+        </div>
+        <div class="flex items-center gap-2 justify-end">
+          <span>{round}</span>
+          {time && ( 
+            <div class="flex gap-3 items-center">
+              <div class="flex-shrink-0">
+                <img src="images/time-ico.svg" width="17" alt="" />
+              </div>
+              <span>{time}</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </td>
+  </tr>
+    
+  </table>
+</div>
+<!-- end matchTable -->

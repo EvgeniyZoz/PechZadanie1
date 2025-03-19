@@ -1,0 +1,31 @@
+---
+import Menu from '@layouts/components/Menu.astro';
+---
+<header class="py-5 header">
+  <div class="flex flex-wrap items-center justify-between">
+    <a href="#" class="w-5 xxs:w-12 sm:w-24">
+      <img src="images/main_logo.svg" class="w-full" alt="">
+    </a>
+    <div class="header-menu-wrapper">
+      <Menu />
+      <div class="menu-btn md:hidden">
+        <span></span>
+      </div>
+    </div>
+    <div class="flex gap-2 items-center">
+      <form action="#" class="flex gap-1">
+        <button type="submit" class="">
+          <img src="images/search-ico.svg" width="21" alt="">
+        </button>
+        <input type="text" class="search-input" placeholder="Поиск" />
+      </form>
+      <a href="#" class="icos-rounded font-RobotoCondensed text-sm-1/2 font-medium flex-shrink-0">En</a>
+      <a href="#" class="icos-rounded flex-shrink-0">
+        <img src="images/user-ico.svg" width="14" height="16" alt="" class="flex-shrink-0">
+      </a>
+      <div class="menu-btn">
+        <span></span>
+      </div>
+    </div>
+  </div>
+</header>

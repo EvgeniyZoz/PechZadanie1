@@ -1,0 +1,339 @@
+---
+import Footer from '@layouts/partials/Footer.astro';
+import Header from '@layouts/partials/Header.astro';
+import Layout from "@layouts/Layout.astro";
+import MatchTable from '@layouts/components/MatchTable.astro';
+import Day from '@layouts/components/Day.astro';
+import Select from '@layouts/components/Select.astro';
+import Title from '@layouts/components/Title.astro';
+
+import TurnirTabItem from "@layouts/components/TurnirTabItem.astro";
+
+const tournaments = [
+  {
+    logoSrc: "images/main_logo.svg",
+    tournamentTitle: "ВС ОЛИМПИЙСКИЙ ТУРНИР",
+    broadcastText: "ТРАНСЛЯЦИЯ",
+    location: "БЕРЛИН",
+    date: "11.01.2025 - 19.01.2025",
+    category: "Категория 1 до 19 лет"
+  },
+  {
+    logoSrc: "images/main_logo.svg",
+    tournamentTitle: "ЧЕМПИОНАТ ЕВРОПЫ",
+    location: "ПАРИЖ",
+    date: "20.02.2025 - 28.02.2025",
+    category: "Категория 2 до 21 года"
+  },
+  {
+    logoSrc: "images/main_logo.svg",
+    tournamentTitle: "МИРОВОЙ КУБОК",
+    location: "ЛОНДОН",
+    date: "05.03.2025 - 15.03.2025",
+    category: "Категория 3 до 23 лет"
+  }
+];
+---
+<Layout title="Under Construction"><div class="container leading-none">
+  <Header />
+  <main class="flex flex-wrap gap-5 md:gap-10 max-w-8xl mx-auto">
+    <div class="left-column">
+      <div class="flex flex-col gap-4">
+
+        <div class="bg-secondary text-white flex gap-6 font-bold uppercase items-center py-5 px-4 md:py-7 md:px-9">
+          <div class="text-text-2xl/2">МАТЧ <br>ЦЕНТР</div>
+          <div class="flex-shrink-0"><img src="images/white_logo.svg" width="42" height="43" alt="" class="flex-shrink-0"></div>
+          <div class="text-xl">Все <br>турниры</div>
+        </div>
+        
+        {tournaments.map(tournament => (
+          <TurnirTabItem {...tournament} />
+        ))}
+        
+
+
+      </div>
+
+    </div><!--end left-column -->
+    <div class="right-column mb-10">
+      <Title 
+        title="ВС ОЛИМПИЙСКИЙ ТУРНИР" 
+        location="Берлин" 
+        category="Категория 1 до 19 лет" 
+        badgeText="ПРЯМОЙ ЭФИР" 
+      />
+      <div class="grid md:grid-cols-2 gap-x-5 xl:gap-x-10 items-center">
+        <div class="day-wrapper mb-5"><div class="day-wrapper-in">
+          <Day day="11" month="Янв" />
+          <Day day="11" month="Янв" />
+          <Day day="12" month="Янв" />
+          <Day day="13" month="Янв" />
+          <Day day="12" month="Янв" />
+          <Day day="13" month="Янв" />
+          <Day day="14" month="Янв" />
+          <Day day="15" month="Янв" />  
+          <Day day="15" month="Янв" />  
+          <Day day="19" month="Янв" isActive />
+        </div></div>
+        <div class="grid xxs:grid-cols-2 gap-3 mb-5">
+          <Select 
+            options={[
+              { value: "", label: "Все матчи" },
+              { value: "single", label: "Одиночный" },
+              { value: "double", label: "Парный" }
+            ]}
+            selectedValue=""
+          />
+
+          <Select 
+            options={[
+              { value: "single", label: "Одиночный" },
+              { value: "double", label: "Парный" }
+            ]}
+            selectedValue=""
+          />
+        </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-x-5 xl:gap-x-10 gap-y-5 mb-7">
+
+        <MatchTable 
+          iconBlock={`<div class="flex-shrink-0"><img src="images/online-ico.svg" width="16" alt="" /></div>`}
+          tournamentName="Взрослые"
+          round="Полуфинал"
+          time="00:34"
+          court=""
+          stat="1"
+          status="СТАТУС МАТЧА"
+          players={[
+            { names: ["Скопинцева А.И."], scores: [15, 6, 6, 0], isActive: true
+            },
+            { names: ["Попова К.А."], scores: [30, 1, 2, 0], isActive: false,
+              highlightedScores: [1,2] 
+            },
+            
+          ]}
+          className="border-secondary"
+          highlightIndex={0}
+        />
+       
+        <MatchTable
+          iconBlock={`<div class="flex-shrink-0"><img src="images/online-ico.svg" width="16" alt="" /></div>`}
+          tournamentName="Взрослые"
+          round="Полуфинал"
+          time="00:34"
+          court="Корт 6"
+          status="СТАТУС МАТЧА"
+          stat="1"
+          players={[
+            { 
+              names: ["Скопинцева1 А.И."], 
+              scores: [4, 4, 4, 10], 
+              isActive: true,
+              highlightedScores: [2,3]  // The second score (4) is highlighted
+            },
+            { 
+              names: ["Попова К.А."], 
+              scores: [30, 1, 2, 0], 
+              isActive: false,
+              highlightedScores: [1,2]  // The second score (4) is highlighted
+            }
+          ]}
+          className="border-secondary"
+          highlightIndex={1}
+        />
+
+        <MatchTable
+            iconBlock={`15:04`}
+            tournamentName="| Взрослые"
+            round="Полуфинал"
+            time="00:00"
+            court="Корт 6"
+            status=""
+            players={[
+              { names: ["Скопинцева А.И.1"], scores: ['', '', '', ''], isActive: false },
+              { names: ["Попова К.А."], scores: ['', '', '', ''], isActive: false }
+            ]}
+            className=""
+        />
+
+          
+        <MatchTable
+          iconBlock={`Не ранее 15:30`}
+          tournamentName="| Взрослые"
+          round="Полуфинал"
+          time="00:00"
+          court="Корт 6"
+          status=""
+          players={[
+            { names: ["Скопинцева А.И.1", "Иванова Т.В.2"], scores: ['', '', '', ''], isActive: false },
+            { names: ["Попова К.А.", "Петрова М.С."], scores: ['', '', '', ''], isActive: false }
+          ]}
+          className=""
+        />
+
+        <MatchTable 
+          iconBlock={`Завершенный`}
+          tournamentName="| Взрослые"
+          round="Полуфинал"
+          time="00:34"
+          court="Корт 6"
+          status=""
+          stat="1"
+          players={[
+            { names: ["Скопинцева А.И.1", "Иванова Т.В.2"], scores: ['checked', '6', '6', '4'], isActive: false,
+              highlightedScores: [3]
+            },
+            { names: ["Попова К.А.", "Петрова М.С."], scores: ['', '1', '2', '6'], isActive: false,
+              highlightedScores: [2]
+            }
+          ]}
+          className=""
+          
+        />
+      </div>
+      <Title 
+        title="ВС ОЛИМПИЙСКИЙ ТУРНИР" 
+        location="Берлин" 
+        category="Категория 1 до 19 лет" 
+        badgeText="ПРЯМОЙ ЭФИР" 
+        className='mt-10'
+      />
+      <div class="grid md:grid-cols-2 gap-x-5 xl:gap-x-10 items-center">
+        <div class="day-wrapper mb-5"><div class="day-wrapper-in">
+          <Day day="11" month="Янв" />
+          <Day day="11" month="Янв" />
+          <Day day="12" month="Янв" />
+          <Day day="13" month="Янв" />
+          <Day day="12" month="Янв" />
+          <Day day="13" month="Янв" />
+          <Day day="14" month="Янв" />
+          <Day day="15" month="Янв" />  
+          <Day day="16" month="Янв" />
+          <Day day="17" month="Янв" />
+          <Day day="18" month="Янв" />
+          <Day day="19" month="Янв" isActive />
+        </div></div>
+        <div class="grid xxs:grid-cols-2 gap-3 mb-5">
+          <Select 
+            options={[
+              { value: "", label: "Все матчи" },
+              { value: "single", label: "Одиночный" },
+              { value: "double", label: "Парный" }
+            ]}
+            selectedValue=""
+          />
+
+          <Select 
+            options={[
+              { value: "single", label: "Одиночный" },
+              { value: "double", label: "Парный" }
+            ]}
+            selectedValue=""
+          />
+        </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-x-5 xl:gap-x-10 gap-y-5 mb-7">
+
+        <MatchTable 
+          iconBlock={`<div class="flex-shrink-0"><img src="images/online-ico.svg" width="16" alt="" /></div>`}
+          tournamentName="Взрослые"
+          round="Полуфинал"
+          time="00:34"
+          court=""
+          stat="1"
+          status="СТАТУС МАТЧА"
+          players={[
+            { names: ["Скопинцева А.И."], scores: [15, 6, 6, 0], isActive: true
+            },
+            { names: ["Попова К.А."], scores: [30, 1, 2, 0], isActive: false,
+              highlightedScores: [1,2] 
+            },
+            
+          ]}
+          className="border-secondary"
+          highlightIndex={0}
+        />
+       
+        <MatchTable
+          iconBlock={`<div class="flex-shrink-0"><img src="images/online-ico.svg" width="16" alt="" /></div>`}
+          tournamentName="Взрослые"
+          round="Полуфинал"
+          time="00:34"
+          court="Корт 6"
+          status="СТАТУС МАТЧА"
+          stat="1"
+          players={[
+            { 
+              names: ["Скопинцева1 А.И."], 
+              scores: [4, 4, 4, 10], 
+              isActive: true,
+              highlightedScores: [2,3]  // The second score (4) is highlighted
+            },
+            { 
+              names: ["Попова К.А."], 
+              scores: [30, 1, 2, 0], 
+              isActive: false,
+              highlightedScores: [1,2]  // The second score (4) is highlighted
+            }
+          ]}
+          className="border-secondary"
+          highlightIndex={1}
+        />
+
+        <MatchTable
+            iconBlock={`15:04`}
+            tournamentName="| Взрослые"
+            round="Полуфинал"
+            time="00:00"
+            court="Корт 6"
+            status=""
+            players={[
+              { names: ["Скопинцева А.И.1"], scores: ['', '', '', ''], isActive: false },
+              { names: ["Попова К.А."], scores: ['', '', '', ''], isActive: false }
+            ]}
+            className=""
+        />
+
+          
+        <MatchTable
+          iconBlock={`Не ранее 15:30`}
+          tournamentName="| Взрослые"
+          round="Полуфинал"
+          time="00:00"
+          court="Корт 6"
+          status=""
+          players={[
+            { names: ["Скопинцева А.И.1", "Иванова Т.В.2"], scores: ['', '', '', ''], isActive: false },
+            { names: ["Попова К.А.", "Петрова М.С."], scores: ['', '', '', ''], isActive: false }
+          ]}
+          className=""
+        />
+
+        <MatchTable 
+          iconBlock={`Завершенный`}
+          tournamentName="| Взрослые"
+          round="Полуфинал"
+          time="00:34"
+          court="Корт 6"
+          status=""
+          stat="1"
+          players={[
+            { names: ["Скопинцева А.И.1", "Иванова Т.В.2"], scores: ['checked', '6', '6', '4'], isActive: false,
+              highlightedScores: [3]
+            },
+            { names: ["Попова К.А.", "Петрова М.С."], scores: ['', '1', '2', '6'], isActive: false,
+              highlightedScores: [2]
+            }
+          ]}
+          className=""
+          
+        />
+      </div>
+    </div><!--end right-column -->
+
+  </main>
+
+  
+</div>
+<Footer />
+</Layout>

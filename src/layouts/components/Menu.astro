@@ -1,0 +1,21 @@
+---
+const navItems = [
+  { name: "МАТЧ ЦЕНТР", link: "#", active: false },
+  { name: "ГЛАВНАЯ", link: "#", active: false },
+  { name: "Турниры", link: "#", active: true },
+  { name: "ВИДЕОТРАНСЛЯЦИИ", link: "#", active: false },
+  { name: "РАСПИСАНИЕ", link: "#", active: false }
+];
+---
+
+<nav>
+  <ul class="flex flex-col md:flex-row gap-8 flex-wrap">
+    {navItems.map(item => (
+      <li class={`group font-bold font-GillSans text-lg uppercase ${item.active ? "active" : ""}`}>
+        <a href={item.link} class="group-[.active]:text-secondary group-[.active]:underline">
+          {item.name}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

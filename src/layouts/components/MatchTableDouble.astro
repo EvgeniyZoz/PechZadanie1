@@ -1,0 +1,80 @@
+---
+interface Player {
+  names: string[]; // Теперь массив из двух фамилий
+  scores: (number | string)[];
+  isActive?: boolean;
+}
+
+interface Props {
+  tournamentName: string;
+  round: string;
+  time: string;
+  players: Player[];
+  court: string;
+  status: string;
+  className?: string;
+  iconBlock?: string;
+}
+
+const { tournamentName, round, time, players, court, status, className = "", iconBlock = "" } = Astro.props;
+---
+
+<div class={`shadow-box rounded-2xl border-2 px-4 py-1 ${className}`}>
+  <table class="text-black w-full font-Inter">
+    <!-- Верхняя строка с названием турнира и временем -->
+    <tr class="text-xs text-darkest">
+      <td class="py-1 px-2" colspan="6">
+        <div class="flex items-center justify-between">
+          <div class="flex gap-3 items-center">
+            {iconBlock ? <Fragment set:html={iconBlock} /> : ''}
+            <span>{tournamentName}</span>
+          </div>
+          <div class="flex items-center gap-2 justify-end">
+            <span>{round}</span>
+            <div class="flex gap-3 items-center">
+              <div class="flex-shrink-0">
+                <img src="images/time-ico.svg" width="17" alt="">
+              </div>
+              <span>{time}</span>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+
+    <!-- Игроки и их результаты -->
+    {players.map((player) => (
+      <tr>
+        <td class="py-1 px-2">
+          {player.names.map((name) => (
+            
+              <div class="relative leading-8 h-8 -mb-2">
+                <span class="absolute left-0 top-0 text-ellipsis whitespace-nowrap overflow-hidden w-full fontsize">
+                  <span class="text font-Inter font-medium">{name}</span>
+                </span>
+              </div>
+            
+          ))}
+        </td>
+        {player.scores.map((score, i) => (
+          <td class={`py-1 w-8 text-center ${player.isActive && i === 0 ? 'bg-hidghlight2 rounded-full' : ''}`}>
+            {score}
+          </td>
+        ))}
+      </tr>
+    ))}
+
+    <!-- Статус матча -->
+    <tr class="text-xs text-darkest">
+      <td class="py-1 px-2" colspan="7">
+        <div class="flex items-center gap-2 justify-between">
+          <div>
+            <img src="images/stat-ico.svg" width="20" alt="">
+          </div>
+          <span class="uppercase">{status}</span>
+          <span>Корт {court}</span>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

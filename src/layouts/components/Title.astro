@@ -1,0 +1,26 @@
+---
+interface Props {
+  title: string;
+  location: string;
+  category: string;
+  badgeText?: string;
+  className?: string;
+}
+
+const { title, location, category, badgeText, className = "" } = Astro.props;
+---
+
+<div class={`flex flex-col gap-3 ${className}`}>
+  <div class="flex flex-wrap gap-x-8 items-start">
+    <div class="text-2xl xs:text-3xl sm:text-text-4xl/2 font-bold">{title}</div>
+    {badgeText && (
+      <div class="border-2 border-accent1 rounded-full font-bold px-5 text-xs text-accent1-light leading-6 inline-block text-nowrap">
+        {badgeText}
+      </div>
+    )}
+  </div>
+  <div class="flex gap-8 mb-5 items-center">
+    <span class="text-xl uppercase">{location}</span>
+    <span class="text-highlight1 uppercase">{category}</span>
+  </div>
+</div>

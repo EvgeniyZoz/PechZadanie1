@@ -1,0 +1,21 @@
+---
+interface Props {
+  options: { value: string; label: string }[];
+  selectedValue?: string;
+  className?: string;
+}
+
+const { options, selectedValue = "", className = "" } = Astro.props;
+---
+
+<div class="select">
+  <select 
+    name="" 
+    id="" 
+    class={`cursor-pointer w-full appearance-none h-12 rounded-2xl border-2 border-secondary leading-5 px-4 pr-7 text-ellipsis overflow-hidden py-3 text-lg text-secondary outline-none uppercase ${className}`}
+  >
+    {options.map(option => (
+      <option value={option.value} selected={option.value === selectedValue}>{option.label}</option>
+    ))}
+  </select>
+</div>
